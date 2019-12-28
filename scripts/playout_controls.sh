@@ -171,6 +171,9 @@ case $COMMAND in
             rm -f $VOLFILE
         fi
         ;;
+    togglespeaker)
+        mpc toggleoutput Speaker        
+        ;;
     setvolume)
         #increase volume only if VOLPERCENT is below the max volume limit and above min volume limit
         if [ $VALUE -le $AUDIOVOLMAXLIMIT ] && [ $VALUE -ge $AUDIOVOLMINLIMIT ];
