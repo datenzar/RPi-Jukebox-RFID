@@ -825,12 +825,19 @@ echo "
 # Register external device(s)
 
 echo "If you are using an USB RFID reader, connect it to your RPi."
-echo "(In case your RFID reader required soldering, consult the manual.)"
-read -r -p "Have you connected your USB Reader? [Y/n] " response
+echo "(In case your RFID reader required soldering, respond with No.)"
+read -r -p "Which kind of RFID Reader do you use? [U for USB/S for Soldered/N for None] " response
 case "$response" in
     [nN][oO]|[nN])
         ;;
-    *)
+    [sS])
+        cd /home/pi/RPi-Jukebox-RFID/scripts/
+        cp Reader.py.experimental Reader.py
+        python3 RegisterDevice.py
+        sudo chown pi:www-data /home/pi/RPi-Jukebox-RFID/scripts/deviceName.txt
+        sudo chmod 644 /home/pi/RPi-Jukebox-RFID/scripts/deviceName.txt
+        ;;
+    [uU])
         cd /home/pi/RPi-Jukebox-RFID/scripts/
         python3 RegisterDevice.py
         sudo chown pi:www-data /home/pi/RPi-Jukebox-RFID/scripts/deviceName.txt
