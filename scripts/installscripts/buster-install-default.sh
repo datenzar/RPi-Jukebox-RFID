@@ -465,7 +465,7 @@ sudo iwconfig wlan0 power off
 
 # Install required packages
 sudo apt-get update
-sudo apt-get --yes --allow-downgrades --allow-remove-essential --allow-change-held-packages install apt-transport-https samba samba-common-bin python-dev python-pip gcc raspberrypi-kernel-headers lighttpd php7.3-common php7.3-cgi php7.3 php7.3-fpm at mpd mpc mpg123 git ffmpeg python-mutagen python3-gpiozero resolvconf spi-tools python-spidev python3-spidev
+sudo apt-get --yes --allow-downgrades --allow-remove-essential --allow-change-held-packages install apt-transport-https samba samba-common-bin python3-dev python3-pip gcc raspberrypi-kernel-headers lighttpd php7.3-common php7.3-cgi php7.3 php7.3-fpm at mpd mpc mpg123 git ffmpeg python3-mutagen python3-gpiozero resolvconf spi-tools python3-spidev
 
 # Install required spotify packages
 if [ $SPOTinstall == "YES" ]
@@ -481,35 +481,36 @@ then
 	sudo rm -rf mopidy-spotify
 	git clone -b fix/web_api_playlists --single-branch https://github.com/princemaxwell/mopidy-spotify.git
 	cd mopidy-spotify
-	sudo python setup.py install
+	sudo python3 setup.py install
 	cd
 	# should be removed, if Mopidy-Iris can be installed normally
 	# pylast >= 3.0.0 removed the python2 support
-	sudo pip install pylast==2.4.0
-	sudo pip install Mopidy-Iris
+	# sudo pip3 install pylast==2.4.0
+    sudo pip3 install pylast
+	sudo pip3 install Mopidy-Iris
 fi
 
 # Get github code
 cd /home/pi/
-git clone https://github.com/MiczFlor/RPi-Jukebox-RFID.git
+git clone https://github.com/datenzar/RPi-Jukebox-RFID.git
 
 # Jump into the Phoniebox dir
 cd RPi-Jukebox-RFID
 
 # Install more required packages
-sudo pip install -r requirements.txt
+sudo pip3 install -r requirements.txt
 
 # actually, for the time being most of the requirements are run here.
 # the requirements.txt version seems to throw errors. Help if you can to fix this:
 
-sudo pip install "evdev == 0.7.0"
-sudo pip install --upgrade youtube_dl
-sudo pip install git+git://github.com/lthiery/SPI-Py.git#egg=spi-py
-sudo pip install pyserial
+sudo pip3 install "evdev == 0.7.0"
+sudo pip3 install --upgrade youtube_dl
+sudo pip3 install git+git://github.com/lthiery/SPI-Py.git#egg=spi-py
+sudo pip3 install pyserial
 # spidev is currently installed via apt-get
-#sudo pip install spidev
-sudo pip install RPi.GPIO
-sudo pip install pi-rc522
+#sudo pip3 install spidev
+sudo pip3 install RPi.GPIO
+sudo pip3 install pi-rc522
 
 # Switch of WiFi power management
 sudo iwconfig wlan0 power off
@@ -831,7 +832,7 @@ case "$response" in
         ;;
     *)
         cd /home/pi/RPi-Jukebox-RFID/scripts/
-        python2 RegisterDevice.py
+        python3 RegisterDevice.py
         sudo chown pi:www-data /home/pi/RPi-Jukebox-RFID/scripts/deviceName.txt
         sudo chmod 644 /home/pi/RPi-Jukebox-RFID/scripts/deviceName.txt
         ;;
